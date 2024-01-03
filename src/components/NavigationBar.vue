@@ -17,7 +17,7 @@
 			<div class="nav-list-item">
 				<span>晒图</span>
 			</div>
-			<router-link class="nav-list-item" to="search">
+			<router-link class="nav-list-item" :to="{name:'search'}">
 				<span>搜索</span>
 			</router-link>
 		</div>
