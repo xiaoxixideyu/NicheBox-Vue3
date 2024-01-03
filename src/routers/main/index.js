@@ -6,7 +6,7 @@ import Message from '@views/main/message/Message.vue'
 import Me from '@views/main/me/Me.vue'
 
 export const main_router = {
-    path: '/',
+    path: '/main',
     component: Main,
     children: [
         {
