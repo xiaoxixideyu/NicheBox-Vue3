@@ -1,5 +1,5 @@
-const search_router = {
+export const search_router = {
     children: [
-        
+
     ]
 }

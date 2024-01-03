@@ -1,4 +1,4 @@
-const main_router = {
+export const main_router = {
     children: [
     ]
 }
