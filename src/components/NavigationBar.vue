@@ -17,7 +17,7 @@
 			<div class="nav-list-item">
 				<span>晒图</span>
 			</div>
-			<router-link class="nav-list-item" to="Search">
+			<router-link class="nav-list-item" to="search">
 				<span>搜索</span>
 			</router-link>
 		</div>
