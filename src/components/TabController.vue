@@ -36,6 +36,7 @@
 		z-index: 10000;
 		line-height: 70px;
 		padding: 0 10px;
+		background-color: black;
 		.tab-list {
 			display: flex;
 			width: 100%;

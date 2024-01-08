@@ -1,7 +1,7 @@
 <template>
-    <div class="draggable">
+    <div>
         <p>this is search 2</p>
-        <button @click="back">返回</button>
+        <BackButton></BackButton>
         <input><button @click="searchButtonClick" class="search-button">搜索</button>
         <SearchListHistory></SearchListHistory>
         <SearchListGuess></SearchListGuess>
@@ -12,6 +12,7 @@
 import { useRoute, useRouter } from 'vue-router'
 import SearchListHistory from './SearchListHistory.vue'
 import SearchListGuess from './SearchListGuess.vue'
+import BackButton from '@components/button/BackButton.vue'
 
 const router = useRouter()
 

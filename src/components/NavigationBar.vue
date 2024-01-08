@@ -34,6 +34,7 @@
 		z-index: 10000;
 		line-height: 40px;
 		padding: 0 10px;
+		background-color:chocolate;
 		.nav-list {
 			display: flex;
 			width: 100%;
