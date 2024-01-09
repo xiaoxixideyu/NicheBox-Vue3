@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <div id="app" :draggable="false">
+  <div id="app">
     <router-view ></router-view>
   </div>
 </template>

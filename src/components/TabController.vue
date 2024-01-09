@@ -6,19 +6,19 @@
     <footer>
         <div class="tab">
             <div class="tab-list">
-                <router-link class="tab-list-item" to="Home">
+                <router-link class="tab-list-item" :to="{name:'Home'}">
                     <span>首页</span>
 				</router-link>
-                <router-link class="tab-list-item" to="Box">
+                <router-link class="tab-list-item" :to="{name:'Box'}">
                     <span>盒子</span>
                 </router-link>
-                <router-link class="tab-list-item" to="Publish">
+                <router-link class="tab-list-item" :to="{name:'Publish'}">
                     <span>(+)</span>
                 </router-link>
-                <router-link class="tab-list-item" to="Message">
+                <router-link class="tab-list-item" :to="{name:'Message'}">
                     <span>消息</span>
                 </router-link>
-                <router-link class="tab-list-item" to="Me">
+                <router-link class="tab-list-item" :to="{name:'Me'}">
                     <span>我</span>
                 </router-link>
             </div>
@@ -36,6 +36,7 @@
 		z-index: 10000;
 		line-height: 70px;
 		padding: 0 10px;
+		background-color: black;
 		.tab-list {
 			display: flex;
 			width: 100%;
