@@ -1,4 +1,4 @@
-import server from "@/utils/server"
+import server from "@/http"
 
 export const login = (email, pwd) => {
     return server({
@@ -8,5 +8,12 @@ export const login = (email, pwd) => {
             email: email,
             password: pwd
         }
+    })
+}
+
+export const getMyBaseInfo = () => {
+    return server({
+        url: '/user/getmybaseinfo',
+        method: 'post'
     })
 }

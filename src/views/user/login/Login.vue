@@ -14,21 +14,32 @@
 
 <script setup>
 import { ref } from 'vue';
-import { login } from '@/apis/user'
-import { setAccessToken, setRefreshToken } from '@/config/storage'
+import { useRouter } from 'vue-router';
+import { login } from '@/http/apis/user'
+import { useUserStore } from "@/store/user";
 import BackButton from '@components/button/BackButton.vue'
 
-const email = ref('');
-const pwd = ref('');
+const router = useRouter()
+const email = ref('')
+const pwd = ref('')
 
 const loginClick = () => {
-    console.log("email: ", email.value)
-    console.log("pwd: ", pwd.value)
+    const userStore = useUserStore()
     login(email.value, pwd.value).then(res => {
         console.log('登录成功')
-        console.log(res)
-        setAccessToken(res.data.token)
-        setRefreshToken(res.data.refresh_token)
+        userStore.accessToken = res.data.token
+        userStore.refreshToken = res.data.refresh_token
+        router.back()
+    }).catch(error => {
+        if (error && error.response) {
+            switch (error.response.status) {
+                case 400: 
+                    alert('登录失败')
+                    break
+                default:
+                    alert('发生未知错误')
+            }
+        }
     })
 }
 

@@ -2,6 +2,8 @@
 
 import { createApp } from 'vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
+import { createPinia } from 'pinia'
+import piniaPersist from 'pinia-plugin-persist'
 import App from './App.vue'
 import { routes } from './routers'
 
@@ -11,8 +13,11 @@ const router = createRouter({
     routes,
 });
 
+// 创建 pinia
+const pinia = createPinia()
+pinia.use(piniaPersist)
+
 const app = createApp(App);
-
 app.use(router)
-
+app.use(pinia)
 app.mount('#app')
