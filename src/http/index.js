@@ -1,7 +1,7 @@
 import axios from "axios";
 import * as constants from "@/common/constants"
-import { addRequest, refreshToken } from "./refresh";
-import { useUserStore } from "@/store/user";
+import { addRequest, refreshToken } from "./refresh"
+import { useUserStore } from "@/store/user"
 
 const server = axios.create({
     baseURL: '/api/',

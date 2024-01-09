@@ -4,7 +4,7 @@
 </template>
 
 <script setup>
-import tabCon from '@/components/TabController.vue'
+import tabCon from '@/components/TabController.vue';
 </script>
 
 <style></style>

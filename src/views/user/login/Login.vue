@@ -15,9 +15,8 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { login } from '@/http/apis/user'
 import { useUserStore } from "@/store/user";
-import BackButton from '@components/button/BackButton.vue'
+import BackButton from '@components/button/BackButton.vue';
 
 const router = useRouter()
 const email = ref('')
@@ -25,21 +24,10 @@ const pwd = ref('')
 
 const loginClick = () => {
     const userStore = useUserStore()
-    login(email.value, pwd.value).then(res => {
-        console.log('登录成功')
-        userStore.accessToken = res.data.token
-        userStore.refreshToken = res.data.refresh_token
+    userStore.login(email.value, pwd.value).then(() => {
         router.back()
-    }).catch(error => {
-        if (error && error.response) {
-            switch (error.response.status) {
-                case 400: 
-                    alert('登录失败')
-                    break
-                default:
-                    alert('发生未知错误')
-            }
-        }
+    }).catch(err => {
+        alert(err.message)
     })
 }
 

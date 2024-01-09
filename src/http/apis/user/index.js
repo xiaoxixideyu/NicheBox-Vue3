@@ -11,6 +11,13 @@ export const login = (email, pwd) => {
     })
 }
 
+export const refreshToken = () => {
+    return server({
+        url: '/user/refreshtoken',
+        method: 'post',
+    })
+}
+
 export const getMyBaseInfo = () => {
     return server({
         url: '/user/getmybaseinfo',
