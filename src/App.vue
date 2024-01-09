@@ -1,11 +1,16 @@
-<script setup>
-</script>
-
 <template>
   <div id="app">
     <router-view ></router-view>
   </div>
 </template>
+
+<script setup>
+import { useUserStore } from './store/user'
+
+const userStore = useUserStore()
+userStore.getMyBaseInfo()
+
+</script>
 
 <style scoped>
 #app{

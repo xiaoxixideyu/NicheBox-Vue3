@@ -1,7 +1,13 @@
 <template>
     <h1>me</h1>
-    <button @click="loginClick">登录</button>
+    <button @click="loginClick" v-show="!userStore.loggedIn">登录</button>
+    <button @click="logoutClick" v-show="userStore.loggedIn">注销</button>
     <button @click="getinfoClick">拿数据</button>
+    <div>
+        <p>uid: {{ userStore.uid }}</p>
+        <p>用户名: {{ userStore.username }}</p>
+        <p>简介: {{ userStore.introduction }}</p>
+    </div>
 </template>
 
 <script setup>
@@ -14,6 +20,10 @@ const userStore = useUserStore()
 
 const loginClick = () => {
     router.push({ name: 'login' })
+}
+
+const logoutClick = () => {
+    userStore.logout()
 }
 
 const getinfoClick = () => {

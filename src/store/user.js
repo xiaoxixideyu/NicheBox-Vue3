@@ -44,6 +44,12 @@ export const useUserStore = defineStore(
             })
         }
 
+        const logout = () => {
+            loggedIn.value = false
+            removeAccessToken()
+            removeRefreshToken()
+        }
+
         const tryRefreshToken = () => {
             return new Promise((resolve, reject) => {
                 httpRefreshToken().then(res => {
@@ -75,7 +81,7 @@ export const useUserStore = defineStore(
         }
 
         return { loggedIn, accessToken, refreshToken, uid, username, introduction,
-                 removeAccessToken, removeRefreshToken, login, tryRefreshToken, getMyBaseInfo }
+                 removeAccessToken, removeRefreshToken, login, logout, tryRefreshToken, getMyBaseInfo }
     },
     {
         persist: {
