@@ -11,6 +11,28 @@ export const login = (email, pwd) => {
     })
 }
 
+export const sendRegisterCode = (email) => {
+    return server({
+        url: '/user/sendverificationcode/register',
+        method: 'post',
+        data: {
+            destination: email
+        }
+    })
+}
+
+export const register = (email, pwd, code) => {
+    return server({
+        url: '/user/register',
+        method: 'post',
+        data: {
+            email: email,
+            password: pwd,
+            code: code
+        }
+    })
+}
+
 export const refreshToken = () => {
     return server({
         url: '/user/refreshtoken',
