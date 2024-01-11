@@ -1,10 +1,18 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { login as httpLogin, refreshToken as httpRefreshToken, getMyBaseInfo as httpGetMyBaseInfo } from '@/http/apis/user'
+import { useRouter } from 'vue-router'
+import { login as httpLogin, 
+    refreshToken as httpRefreshToken, 
+    getMyBaseInfo as httpGetMyBaseInfo, 
+    register as httpRegister, 
+    sendForgetPassword as httpSendForgetPassword,
+    checkEmailExists as httpCheckEmailExists
+     } from '@/http/apis/user'
 
 export const useUserStore = defineStore(
     'userStore',
     () => {
+        const router = useRouter()
         // token
         const accessToken = ref('')
         const refreshToken = ref('')
@@ -21,6 +29,29 @@ export const useUserStore = defineStore(
 
         const removeRefreshToken = () => {
             refreshToken.value = ''
+        }
+
+        const register = (email, pwd, code) => {
+            return new Promise((resolve, reject) => {
+                httpRegister(email, pwd, code).then(res => {
+                    if (res.data.login_success) {
+                        loggedIn.value = true
+                        accessToken.value = res.data.token
+                        refreshToken.value = res.data.refresh_token
+                    }
+                    resolve(res.data.login_success)
+                }).catch(err => {
+                    if (err && err.response) {
+                        switch (err.response.status) {
+                            case 400: 
+                                err.message = err.response.data
+                                break
+                            default: err.message = '发生未知错误'
+                        }
+                    }
+                    reject(err)
+                })
+            })
         }
 
         const login = (email, pwd) => {
@@ -80,8 +111,44 @@ export const useUserStore = defineStore(
             })
         }
 
+        const forgetPassword = (email, pwd, code) => {
+            return new Promise((resolve, reject) => {
+                httpSendForgetPassword(email, pwd, code).then(res => {
+                    resolve()
+                }).catch(err => {
+                    if (err && err.response) {
+                        switch (err.response.status) {
+                            case 400: 
+                                err.message = err.response.data
+                                break
+                            default: err.message = '发生未知错误'
+                        }
+                    }
+                    reject(err)
+                })
+            })
+        }
+
+        const checkEmailExists = (email) => {
+            return new Promise((resolve, reject) => {
+                httpCheckEmailExists(email).then(res => {
+                    resolve(res.data.exist)
+                }).catch(err => {
+                    if (err && err.response) {
+                        switch (err.response.status) {
+                            case 400: 
+                                err.message = err.response.data
+                                break
+                            default: err.message = '发生未知错误'
+                        }
+                    }
+                    reject(err)
+                })
+            })
+        }
+
         return { loggedIn, accessToken, refreshToken, uid, username, introduction,
-                 removeAccessToken, removeRefreshToken, login, logout, tryRefreshToken, getMyBaseInfo }
+                 removeAccessToken, removeRefreshToken, login, logout, tryRefreshToken, getMyBaseInfo, register, forgetPassword, checkEmailExists }
     },
     {
         persist: {

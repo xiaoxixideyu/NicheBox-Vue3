@@ -10,6 +10,7 @@
         <input type="text" v-model="pwd">
     </div>
     <button @click="loginClick">登录</button>
+    <button @click="forgetPasswordClick">忘记密码</button>
 </template>
 
 <script setup>
@@ -25,10 +26,14 @@ const pwd = ref('')
 const loginClick = () => {
     const userStore = useUserStore()
     userStore.login(email.value, pwd.value).then(() => {
-        router.back()
+        router.push({ name: 'Home'})
     }).catch(err => {
         alert(err.message)
     })
+}
+
+const forgetPasswordClick = () => {
+    router.push({ name: 'forgetPassword'})
 }
 
 </script>

@@ -3,6 +3,7 @@
     <button @click="loginClick" v-show="!userStore.loggedIn">登录</button>
     <button @click="logoutClick" v-show="userStore.loggedIn">注销</button>
     <button @click="getinfoClick">拿数据</button>
+    <button @click="registerClick" v-show="!userStore.loggedIn">注册</button>
     <div>
         <p>uid: {{ userStore.uid }}</p>
         <p>用户名: {{ userStore.username }}</p>
@@ -20,6 +21,10 @@ const userStore = useUserStore()
 
 const loginClick = () => {
     router.push({ name: 'login' })
+}
+
+const registerClick = () => {
+    router.push({ name: 'register' })
 }
 
 const logoutClick = () => {
