@@ -11,16 +11,6 @@ export const login = (email, pwd) => {
     })
 }
 
-export const sendRegisterCode = (email) => {
-    return server({
-        url: '/user/sendverificationcode/register',
-        method: 'post',
-        data: {
-            destination: email
-        }
-    })
-}
-
 export const register = (email, pwd, code) => {
     return server({
         url: '/user/register',
@@ -39,16 +29,6 @@ export const checkEmailExists = (email) => {
         method: 'post',
         data: {
             email: email
-        }
-    })
-}
-
-export const sendForgetPasswordCode = (email) => {
-    return server({
-        url: '/user/sendverificationcode/forgetpassword',
-        method: 'post',
-        data: {
-            destination: email
         }
     })
 }

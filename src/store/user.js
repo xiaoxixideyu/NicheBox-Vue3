@@ -129,10 +129,10 @@ export const useUserStore = defineStore(
             })
         }
 
-        const checkEmailExist = (email) => {
+        const checkEmailExists = (email) => {
             return new Promise((resolve, reject) => {
                 httpCheckEmailExists(email).then(res => {
-                    resolve(exists)
+                    resolve(res.data.exist)
                 }).catch(err => {
                     if (err && err.response) {
                         switch (err.response.status) {
@@ -148,7 +148,7 @@ export const useUserStore = defineStore(
         }
 
         return { loggedIn, accessToken, refreshToken, uid, username, introduction,
-                 removeAccessToken, removeRefreshToken, login, logout, tryRefreshToken, getMyBaseInfo, register, forgetPassword, checkEmailExist }
+                 removeAccessToken, removeRefreshToken, login, logout, tryRefreshToken, getMyBaseInfo, register, forgetPassword, checkEmailExists }
     },
     {
         persist: {

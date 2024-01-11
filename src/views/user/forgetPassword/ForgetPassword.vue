@@ -37,16 +37,17 @@ function sendForgetPasswordCodeClick() {
             alert('此邮箱未注册')
             return
         }
-        verificationCodeStore.sendForgetPasswordCode(email.value).then(() => {
-            
-        }).catch(err => {
-            alert(err.message)
-        })
+
+        sendForgetPasswordCode()
         
         }).catch(err => {
         alert(err.message)
     })
     
+}
+
+function sendForgetPasswordCode() {
+    verificationCodeStore.sendForgetPasswordCode(email.value)
 }
 
 function sendForgetPasswordClick() {
