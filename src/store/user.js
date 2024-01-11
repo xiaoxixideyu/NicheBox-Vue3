@@ -6,9 +6,8 @@ import { login as httpLogin,
     getMyBaseInfo as httpGetMyBaseInfo, 
     register as httpRegister, 
     sendForgetPassword as httpSendForgetPassword,
-    checkEmailExists as httpCheckEmailExists, 
-    getCriticalUserInfo as httpGetCriticalUserInfo,
-    setCriticalUserInfo as httpSetCriticalUserInfo } from '@/http/apis/user'
+    checkEmailExists as httpCheckEmailExists
+     } from '@/http/apis/user'
 
 export const useUserStore = defineStore(
     'userStore',
@@ -149,7 +148,7 @@ export const useUserStore = defineStore(
         }
 
         return { loggedIn, accessToken, refreshToken, uid, username, introduction,
-                 removeAccessToken, removeRefreshToken, login, logout, tryRefreshToken, getMyBaseInfo, register, forgetPassword, checkEmailExist, getCriticalUserInfo, setCriticalUserInfo }
+                 removeAccessToken, removeRefreshToken, login, logout, tryRefreshToken, getMyBaseInfo, register, forgetPassword, checkEmailExist }
     },
     {
         persist: {

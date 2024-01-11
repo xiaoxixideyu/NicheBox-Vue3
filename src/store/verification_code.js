@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import {sendRegisterCode as httpSendRegisterCode, 
-    sendForgetPasswordCode as httpSendForgetPasswordCode,
+    sendForgetPasswordCode as httpSendForgetPasswordCode 
+    } from '@/http/apis/user'
 
 export const useVerificationCodeStore = defineStore(
     "verification_code",
@@ -29,7 +30,7 @@ export const useVerificationCodeStore = defineStore(
             })
         }
 
-        return {code, sendRegisterCode, sendForgetPasswordCode, sendSetCriticalUserInfoCode, sendCheckCriticalUserInfoCode}
+        return {code, sendRegisterCode, sendForgetPasswordCode }
     },
     {
         persist: {
