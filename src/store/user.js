@@ -1,7 +1,14 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { login as httpLogin, refreshToken as httpRefreshToken, getMyBaseInfo as httpGetMyBaseInfo, register as httpRegister } from '@/http/apis/user'
+import { login as httpLogin, 
+    refreshToken as httpRefreshToken, 
+    getMyBaseInfo as httpGetMyBaseInfo, 
+    register as httpRegister, 
+    sendForgetPassword as httpSendForgetPassword,
+    checkEmailExists as httpCheckEmailExists, 
+    getCriticalUserInfo as httpGetCriticalUserInfo,
+    setCriticalUserInfo as httpSetCriticalUserInfo } from '@/http/apis/user'
 
 export const useUserStore = defineStore(
     'userStore',
@@ -105,8 +112,44 @@ export const useUserStore = defineStore(
             })
         }
 
+        const forgetPassword = (email, pwd, code) => {
+            return new Promise((resolve, reject) => {
+                httpSendForgetPassword(email, pwd, code).then(res => {
+                    resolve()
+                }).catch(err => {
+                    if (err && err.response) {
+                        switch (err.response.status) {
+                            case 400: 
+                                err.message = err.response.data
+                                break
+                            default: err.message = '发生未知错误'
+                        }
+                    }
+                    reject(err)
+                })
+            })
+        }
+
+        const checkEmailExist = (email) => {
+            return new Promise((resolve, reject) => {
+                httpCheckEmailExists(email).then(res => {
+                    resolve(exists)
+                }).catch(err => {
+                    if (err && err.response) {
+                        switch (err.response.status) {
+                            case 400: 
+                                err.message = err.response.data
+                                break
+                            default: err.message = '发生未知错误'
+                        }
+                    }
+                    reject(err)
+                })
+            })
+        }
+
         return { loggedIn, accessToken, refreshToken, uid, username, introduction,
-                 removeAccessToken, removeRefreshToken, login, logout, tryRefreshToken, getMyBaseInfo, register }
+                 removeAccessToken, removeRefreshToken, login, logout, tryRefreshToken, getMyBaseInfo, register, forgetPassword, checkEmailExist, getCriticalUserInfo, setCriticalUserInfo }
     },
     {
         persist: {

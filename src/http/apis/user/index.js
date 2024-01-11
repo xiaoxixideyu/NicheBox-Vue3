@@ -33,6 +33,38 @@ export const register = (email, pwd, code) => {
     })
 }
 
+export const checkEmailExists = (email) => {
+    return server({
+        url: '/user/checkemailexists',
+        method: 'post',
+        data: {
+            email: email
+        }
+    })
+}
+
+export const sendForgetPasswordCode = (email) => {
+    return server({
+        url: '/user/sendverificationcode/forgetpassword',
+        method: 'post',
+        data: {
+            destination: email
+        }
+    })
+}
+
+export const sendForgetPassword = (email, newPwd, code) => {
+    return server({
+        url: '/user/forgetpassword',
+        method: 'post',
+        data: {
+            email: email,
+            new_password: newPwd,
+            code: code
+        }
+    })
+} 
+
 export const refreshToken = () => {
     return server({
         url: '/user/refreshtoken',

@@ -10,6 +10,11 @@ export const user_router = {
             path: 'register',
             name: 'register',
             component: () => import('@views/user/register/Register.vue'),
+        },
+        {
+            path: 'forgetPassword',
+            name: 'forgetPassword',
+            component: () => import('@views/user/forgetPassword/ForgetPassword.vue'),
         }
     ]
 }
