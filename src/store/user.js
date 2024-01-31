@@ -1,18 +1,19 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
 import { login as httpLogin, 
     refreshToken as httpRefreshToken, 
     getMyBaseInfo as httpGetMyBaseInfo, 
     register as httpRegister, 
     sendForgetPassword as httpSendForgetPassword,
-    checkEmailExists as httpCheckEmailExists
+    checkEmailExists as httpCheckEmailExists,
+    getAvatar as httpGetAvatar,
+    uploadAvatar as httpUploadAvatar
      } from '@/http/apis/user'
+import { DEFAULT_AVATAR } from '@/common/constants'
 
 export const useUserStore = defineStore(
     'userStore',
     () => {
-        const router = useRouter()
         // token
         const accessToken = ref('')
         const refreshToken = ref('')
@@ -22,6 +23,10 @@ export const useUserStore = defineStore(
         const uid = ref('')
         const username = ref('')
         const introduction = ref('')
+
+        // usr avatar url
+        const avatarOrigin = ref(DEFAULT_AVATAR)
+        const avatarWebp = ref(DEFAULT_AVATAR)
 
         const removeAccessToken = () => {
             accessToken.value = ''
@@ -147,8 +152,44 @@ export const useUserStore = defineStore(
             })
         }
 
-        return { loggedIn, accessToken, refreshToken, uid, username, introduction,
-                 removeAccessToken, removeRefreshToken, login, logout, tryRefreshToken, getMyBaseInfo, register, forgetPassword, checkEmailExists }
+        const getAvatar = (uid) => {
+            return new Promise((resolve, reject) => {
+                httpGetAvatar(uid).then(res => {
+                    resolve(res)
+                }).catch(err => {
+                    reject(err)
+                })
+            })
+        }
+
+        const uploadAvatar = (file) => {
+            return new Promise((resolve, reject) => {
+                httpUploadAvatar(file).then(res => {
+                    getAvatar(uid.value).then(res => {
+                        setAvatarUrl(res.data.origin_url, res.data.webp_url)
+                    })
+                    resolve(res)
+                }).catch(err => {
+                    reject(err)
+                })
+            })
+        }
+
+        const setAvatarUrl = (origin, webp) => {
+            if (origin == 'null') {
+                avatarOrigin.value = DEFAULT_AVATAR
+            } else {
+                avatarOrigin.value = origin
+            }
+            if (webp == 'null') {
+                avatarWebp.value = DEFAULT_AVATAR
+            } else {
+                avatarWebp.value = webp
+            }
+        }
+
+        return { loggedIn, accessToken, refreshToken, uid, username, introduction, avatarOrigin, avatarWebp,
+                 removeAccessToken, removeRefreshToken, login, logout, tryRefreshToken, getMyBaseInfo, register, forgetPassword, checkEmailExists, getAvatar, uploadAvatar, setAvatarUrl }
     },
     {
         persist: {

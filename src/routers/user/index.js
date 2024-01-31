@@ -15,6 +15,11 @@ export const user_router = {
             path: 'forgetPassword',
             name: 'forgetPassword',
             component: () => import('@views/user/forgetPassword/ForgetPassword.vue'),
+        },
+        {
+            path: 'uploadAvatar',
+            name: 'uploadAvatar',
+            component: () => import('@views/user/uploadAvatar/UploadAvatar.vue'),
         }
     ]
 }

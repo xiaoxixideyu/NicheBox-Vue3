@@ -6,6 +6,8 @@ import { createPinia } from 'pinia'
 import piniaPersist from 'pinia-plugin-persist'
 import App from './App.vue'
 import { routes } from './routers'
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
 
 // 创建路由实例
 const router = createRouter({
@@ -20,4 +22,5 @@ pinia.use(piniaPersist)
 const app = createApp(App);
 app.use(router)
 app.use(pinia)
+app.use(ElementPlus)
 app.mount('#app')

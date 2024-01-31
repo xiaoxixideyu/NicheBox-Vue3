@@ -5,6 +5,8 @@
     <button @click="getinfoClick">拿数据</button>
     <button @click="registerClick" v-show="!userStore.loggedIn">注册</button>
     <div>
+        <img :src="userStore.avatarWebp" alt="头像" />
+        <button @click="uploadAvatar" v-show="userStore.loggedIn">上传头像</button>
         <p>uid: {{ userStore.uid }}</p>
         <p>用户名: {{ userStore.username }}</p>
         <p>简介: {{ userStore.introduction }}</p>
@@ -12,7 +14,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useUserStore } from '@/store/user';
 
@@ -34,14 +36,20 @@ const logoutClick = () => {
 const getinfoClick = () => {
     userStore.getMyBaseInfo().then(() => {
         console.log('拿数据成功')
+        userStore.getAvatar(userStore.uid).then(res => {
+            userStore.setAvatarUrl(res.data.origin_url, res.data.webp_url)
+        })
     }).catch(() => {
         console.log('拿数据失败')
     })
 }
 
+const uploadAvatar = () => {
+    router.push({ name: 'uploadAvatar' })
+}
+
 onMounted(() => {
     console.log('my is now mounted')
-
 })
 
 </script>

@@ -58,3 +58,24 @@ export const getMyBaseInfo = () => {
         method: 'post'
     })
 }
+
+export const getAvatar = (uid) => {
+    return server({
+        url: '/user/getavatar',
+        method: 'post',
+        data: {
+            uid: uid,
+        },
+    })
+}
+
+export const uploadAvatar = (file) => {
+    return server({
+        url: '/user/uploadavatar',
+        method: 'post',
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        },
+        data: file
+    })
+}

@@ -8,7 +8,11 @@
 import { useUserStore } from './store/user'
 
 const userStore = useUserStore()
-userStore.getMyBaseInfo()
+userStore.getMyBaseInfo().then(() => {
+  userStore.getAvatar(userStore.uid).then(res => {
+    userStore.setAvatarUrl(res.data.origin_url, res.data.webp_url)
+  })
+})
 
 </script>
 
